@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("board")
-public class AnnouncementsController {
+@RequestMapping("/user/characters")
+public class CharacterController {
 
     @GetMapping()
-    public String showAnnouncements() {
-        return "announcements";
+    public String characterCustomizationScreen() {
+        return "character-customization";
     }
 }

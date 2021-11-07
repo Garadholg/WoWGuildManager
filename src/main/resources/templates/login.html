@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login | WoW Guild Manager</title>
+    <link th:href="@{/css/theme.css}" rel="stylesheet"/>
+    <link th:href="@{/css/login.css}" rel="stylesheet"/>
 </head>
 <body>
-<div class="container-fluid">
-    <div th:replace="fragments :: header"></div>
-    <h3>Login</h3>
-    <div th:if="${param.error}" class="login-error">Unable to login. Check your username and password.</div>
-    <div th:if="${param.logout}" class="login-success">You have successfully logged out.</div>
-    <form method="post" th:action="@{/login}">
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-                <label for="username">Username: </label>
-                <input id="username" type="text" name="username" class="form-control" />
+<div class="container-fluid flex center_content">
+    <div id="login_container" class="content_frame color_background_secondary elevated">
+        <h3 class="title_text color_primary">Login</h3>
+        <div th:if="${param.error}" class="error_message">Wrong username or password.</div>
+        <div th:if="${param.logout}" class="login-success">You have successfully logged out.</div>
+        <form method="post" th:action="@{/login}">
+            <div class="form_element">
+                <label class="label_text color_primary" for="username">Username: </label>
+                <input id="username" class="content_frame" type="text" name="username"/>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-                <label for="password">Password: </label>
-                <input id="password" type="password" name="password" class="form-control" />
+            <div class="form_element">
+                <label class="label_text color_primary" for="password">Password: </label>
+                <input id="password" class="content_frame" type="password" name="password"/>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-                <input type="submit" value="Login" class="form-control btn btn-primary" />
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <input type="submit" value="Login" class="form-control btn btn-primary"/>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
-<div th:replace="fragments :: js"></div>
 </body>
 </html>
