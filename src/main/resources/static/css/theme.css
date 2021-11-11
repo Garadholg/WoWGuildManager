@@ -35,6 +35,12 @@ input[type="submit"]{
     margin: 12px 0;
 }
 
+.content_main_container {
+    width: 70%;
+    margin: 30px auto;
+    background-color: #170e09;
+}
+
 .error_message {
     display: inline-block;
     width: auto;
@@ -64,6 +70,10 @@ input[type="submit"]{
 /*
     UTILS
 */
+
+.block {
+    display: block;
+}
 
 .flex {
     display: flex;

@@ -1,0 +1,129 @@
+.navbar {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #170e09;
+    box-shadow: 0px 10px 12px 0 rgba(0,0,0,0.6);
+    border-bottom: 1px solid #504137;
+    transition: 0.3s;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.navbar_left,
+.navbar_right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+}
+
+.navbar_list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar_list li {
+    display: flex;
+    align-self: stretch;
+    position: relative;
+}
+
+.navbar_left li {
+    float: left;
+}
+
+.navbar_right li {
+    float: right;
+}
+
+.navbar_list > li:hover > .navbar_item,
+.navbar_list > li:focus-within > .navbar_item {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.navbar_list li:focus-within a {
+    outline: none;
+}
+
+.navbar_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 14px;
+    flex-direction: row;
+    transition-duration: 0.5s;
+    font-size: 1.15em;
+}
+
+.navbar_item a:first-child {
+    font-weight: bold;
+}
+
+.dropdown {
+    visibility: hidden;
+    position: absolute;
+    padding: 0;
+    display: none;
+    background-color: #170e09;
+    opacity: 1;
+    box-shadow: 0px 10px 12px 0 rgba(0,0,0,0.6);
+    transition: 0.3s;
+}
+
+.dropdown_left {
+    padding: 0 60px 0 24px;
+}
+
+.dropdown_right {
+    padding: 0 24px 0 60px;
+}
+
+.navbar_right .dropdown {
+    top: 78px;
+    right: 14px;
+}
+
+.navbar_list li:hover > .dropdown,
+.navbar_list li:focus-within > .dropdown,
+.navbar_list li .dropdown:hover,
+.navbar_list li .dropdown:focus {
+    visibility: visible;
+    display: block;
+}
+
+.dropdown li {
+    width: 100%;
+    margin: 12px 0;
+    font-size: 1em;
+    clear: both;
+    text-decoration: none;
+}
+
+.dropdown li:hover {
+
+}
+
+#navbar_logo {
+    height: 40px;
+    padding-right: 12px;
+}
+
+#input_logout {
+    padding: 0;
+    margin: 0;
+    background-color: #170e09;
+    border: none;
+}

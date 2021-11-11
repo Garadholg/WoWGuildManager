@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <div th:fragment="navbar">
-        <img th:src="@{/images/vaccination-logo.png}" />
-        <h3>Navbar</h3>
-    </div>
+    <nav role="navigation" class="navbar" th:fragment="navbar">
+        <div class="navbar_left">
+            <ul class="navbar_list">
+                <li>
+                    <a class="navbar_item color_primary" href="#">
+                        <img id="navbar_logo" th:src="@{/images/sword-logo.png}" />
+                        <div>
+                            <span class="block">Guild</span>
+                            <span class="block">Manager</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="navbar_item color_primary" href="#">My Characters</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar_right">
+            <ul class="navbar_list">
+                <li>
+                    <a class="navbar_item color_primary" href="#" aria-haspopup="true">Garadholg</a>
+                    <ul class="dropdown dropdown_right" aria-label="submenu">
+                        <li>
+                            <form th:action="@{/logout}" method="post" class="form_no_style">
+                                <input type="submit" id="input_logout" value="Logout">
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </body>
 </html>
