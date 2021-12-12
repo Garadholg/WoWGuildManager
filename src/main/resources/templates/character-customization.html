@@ -5,14 +5,102 @@
     <title>Character Customization</title>
     <link th:href="@{/css/theme.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/css/character-customization.css}" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="content_main_container flex content_frame">
-        <h1>Character customization</h1>
+        <select id="character_dropdown" class="dropdown_list" onchange="fillSelectedCharInfo()">
+            <option th:each="char : ${chars}" th:value="${char.id}" th:text="${char.name}"></option>
+            <option value="1000">+ New character</option>
+        </select>
 
+        <div id="character_info">
+            <p id="char_spec" class="color_primary"></p>
+        </div>
+    </div>
+</div>
+
+<div id="modal_container" class="modal_container flex center_content invisible" onclick="clearAndCloseModal()">
+    <div id="modal_content" class="content_frame color_background_secondary elevated">
+        <h3 class="title_text color_primary">New Character</h3>
+        <form method="post" th:action="@{/user/characters/new}" th:object="${createFormData}">
+            <div class="form_element">
+                <label class="label_text color_primary" for="username">Username: </label>
+                <input id="username" class="content_frame" type="text" th:field="*{characterName}"/>
+            </div>
+            <div class="form_element">
+                <select id="class_dropdown" class="dropdown_list" onchange="filterSpecs()">
+                    <option th:each="class : ${classes}" th:value="${class.id}" th:text="${class.name}"></option>
+                </select>
+            </div>
+            <div class="form_element">
+                <select id="spec_dropdown" class="dropdown_list" th:field="*{specID}">
+                    <option th:each="spec : ${specs}" th:value="${spec.id}" th:text="${spec.name}"></option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Create" />
+            </div>
+        </form>
     </div>
 </div>
 </body>
 </html>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function fillSelectedCharInfo() {
+        let characters = /*[[${chars}]]*/ null;
+        let selectedIndex = $("#character_dropdown option:selected").index();
+
+        if (selectedIndex != characters.length) {
+            let selectedCharacter = characters[selectedIndex];
+            $("#char_spec").text(selectedCharacter.spec.name + " " + selectedCharacter.spec.specClass.name);
+        } else {
+            $("#modal_container").removeClass("invisible");
+            $("#class_dropdown").val(1);
+            filterSpecs();
+            $("#char_spec").text("");
+        }
+    }
+
+    function filterSpecs() {
+        let specializations = /*[[${specs}]]*/ null;
+        let selectedClassId = $("#class_dropdown option:selected").val();
+
+        let selectedClassSpecs = specializations.filter(s => s.specClass.id == selectedClassId).map(s => s.id);
+
+        $("#spec_dropdown option").each(function()
+        {
+            let specID = $(this).val();
+            if (!selectedClassSpecs.includes(parseInt(specID))) {
+                console.log(specID);
+                $(this).attr('disabled', 'disabled').hide();
+            } else {
+                $(this).removeAttr('disabled').show();
+            }
+        });
+
+        $("#spec_dropdown").val(selectedClassSpecs[0]);
+    }
+
+    function clearAndCloseModal(e) {
+        $("#character_dropdown").prop('selectedIndex', 0);
+        fillSelectedCharInfo();
+        $("#modal_container").addClass("invisible");
+        $("#username").text("");
+    }
+
+    $(function() {
+        fillSelectedCharInfo();
+
+        $("#modal_container > *").click(function(e) {
+            e.stopPropagation();
+        })
+    });
+    /*]]>*/
+</script>

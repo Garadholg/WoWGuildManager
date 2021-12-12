@@ -36,8 +36,10 @@ input[type="submit"]{
 }
 
 .content_main_container {
+    flex-direction: column;
     width: 70%;
     margin: 30px auto;
+    padding: 20px;
     background-color: #170e09;
 }
 
@@ -55,6 +57,22 @@ input[type="submit"]{
 .content_frame {
     border: 1px solid #504137;
     border-radius: 2px;
+}
+
+select {
+    color: #f8b700;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #504137;
+}
+
+.modal_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10;
 }
 
 /*
@@ -77,6 +95,11 @@ input[type="submit"]{
 
 .flex {
     display: flex;
+    align-items: flex-start;
+}
+
+.invisible {
+    display: none;
 }
 
 .center_content {

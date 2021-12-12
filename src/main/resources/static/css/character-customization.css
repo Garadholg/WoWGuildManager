@@ -1,0 +1,11 @@
+#character_dropdown {
+    min-width: 24%;
+    width: auto;
+    font-size: 2em;
+    border-bottom-width: 2px;
+}
+
+#modal_content {
+    min-width: 22%;
+    padding: 12px 90px;
+}
