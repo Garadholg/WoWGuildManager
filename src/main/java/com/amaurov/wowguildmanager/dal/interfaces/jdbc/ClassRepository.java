@@ -1,4 +1,4 @@
-package com.amaurov.wowguildmanager.dal.interfaces;
+package com.amaurov.wowguildmanager.dal.interfaces.jdbc;
 
 import com.amaurov.wowguildmanager.models.Class;
 

@@ -1,8 +1,7 @@
-package com.amaurov.wowguildmanager.dal.implementations;
+package com.amaurov.wowguildmanager.dal.implementations.jdbc;
 
-import com.amaurov.wowguildmanager.dal.interfaces.ClassRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.ClassRepository;
 import com.amaurov.wowguildmanager.models.Class;
-import com.amaurov.wowguildmanager.models.Specialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

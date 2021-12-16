@@ -1,11 +1,8 @@
-package com.amaurov.wowguildmanager.dal.implementations;
+package com.amaurov.wowguildmanager.dal.implementations.jdbc;
 
-import com.amaurov.wowguildmanager.dal.interfaces.CharacterRepository;
-import com.amaurov.wowguildmanager.dal.interfaces.SpecRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.CharacterRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.SpecRepository;
 import com.amaurov.wowguildmanager.models.Character;
-import com.amaurov.wowguildmanager.models.Class;
-import com.amaurov.wowguildmanager.models.Specialization;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -57,7 +54,7 @@ public class CharacterRepositoryImpl implements CharacterRepository {
             values.put("Username", character.getUser());
             values.put("CharacterName", character.getName());
             values.put("RaceID", character.getRace());
-            values.put("SpecID", character.getSpec().getId());
+            //values.put("SpecID", character.getSpec().getId());
             values.put("isMainChar", character.isMainChar());
 
             int new_key = jdbcInsert.executeAndReturnKey(values).intValue();

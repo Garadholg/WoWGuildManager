@@ -1,6 +1,10 @@
 package com.amaurov.wowguildmanager.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 public class Character {
+
     private int id;
     private String user;
     private String name;
@@ -30,6 +34,9 @@ public class Character {
 
     public boolean isMainChar() {
         return isMainChar;
+    }
+
+    public Character() {
     }
 
     public Character(int id, String user, String name, Specialization spec, boolean isMainChar) {

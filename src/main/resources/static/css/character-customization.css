@@ -1,8 +1,34 @@
+.item_slot {
+    margin: 10px 0;
+}
+
 #character_dropdown {
     min-width: 24%;
     width: auto;
     font-size: 2em;
     border-bottom-width: 2px;
+}
+
+#character_info {
+    align-items: center;
+}
+
+#class_icon {
+    width: 32px;
+    margin-right: 7px;
+}
+
+#items_left {
+    margin-right: 115px;
+}
+
+#items_right {
+    margin-left: 115px;
+}
+
+#items_bottom {
+    margin-top: 30px;
+    justify-content: center;
 }
 
 #modal_content {

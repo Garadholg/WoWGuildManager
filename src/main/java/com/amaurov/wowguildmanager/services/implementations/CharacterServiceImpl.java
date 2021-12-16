@@ -1,9 +1,11 @@
 package com.amaurov.wowguildmanager.services.implementations;
 
-import com.amaurov.wowguildmanager.dal.interfaces.CharacterRepository;
-import com.amaurov.wowguildmanager.dal.interfaces.ClassRepository;
-import com.amaurov.wowguildmanager.dal.interfaces.SpecRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.CharacterRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.ClassRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jdbc.SpecRepository;
+import com.amaurov.wowguildmanager.dal.interfaces.jpa.CharacterJpaRepository;
 import com.amaurov.wowguildmanager.models.Character;
+import com.amaurov.wowguildmanager.models.jpaEntities.CharacterEntity;
 import com.amaurov.wowguildmanager.models.Class;
 import com.amaurov.wowguildmanager.models.Specialization;
 import com.amaurov.wowguildmanager.services.interfaces.CharacterService;
@@ -20,7 +22,8 @@ public class CharacterServiceImpl implements CharacterService {
 
     private final ClassRepository classRepository;
     private final SpecRepository specRepository;
-    private final CharacterRepository charRepository;
+    private final CharacterRepository characterRepository;
+    private final CharacterJpaRepository characterJpaRepository;
 
     public Set<Class> getAllClasses() {
         return classRepository.getAll();
@@ -33,12 +36,12 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Optional<List<Character>> getCharactersForUser(String username) {
-        return charRepository.getAllForUser(username);
+        return characterRepository.getAllForUser(username);
     }
 
     @Override
     public void createCharacter(String username, String characterName, int specID) {
-        charRepository.create(
+        characterRepository.create(
                 new Character(
                         0,
                         username,
@@ -47,6 +50,11 @@ public class CharacterServiceImpl implements CharacterService {
                         false
                 )
         );
+    }
+
+    @Override
+    public Optional<CharacterEntity> getCharacterFullInfo(int characterId) {
+        return characterJpaRepository.findById(characterId);
     }
 
 }

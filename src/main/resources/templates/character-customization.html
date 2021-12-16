@@ -18,8 +18,39 @@
             <option value="1000">+ New character</option>
         </select>
 
-        <div id="character_info">
+        <div id="character_info" class="flex">
+            <img id="class_icon" th:src="@{/images/class-icons/none.png}" alt="class-icon">
             <p id="char_spec" class="color_primary"></p>
+        </div>
+
+        <div>
+            <h3 class="title_text color_primary">Equipment</h3>
+            <div class="flex">
+                <div id="items_left" class="flex flex_col">
+                    <div class="item_slot">
+                        <img class="item_icon" th:src="@{/images/item-icons/no-head.png}" alt="head-icon">
+                    </div>
+                    <div class="item_slot">
+                        <img class="item_icon" th:src="@{/images/item-icons/no-shoulder.png}" alt="shoulder-icon">
+                    </div>
+                    <div class="item_slot">
+                        <img class="item_icon" th:src="@{/images/item-icons/no-chest.png}" alt="chest-icon">
+                    </div>
+                </div>
+                <div id="items_right" class="flex flex_col">
+                    <div class="item_slot">
+                        <img class="item_icon" th:src="@{/images/item-icons/no-hands.png}" alt="hands-icon">
+                    </div>
+                    <div class="item_slot">
+                        <img class="item_icon" th:src="@{/images/item-icons/no-legs.png}" alt="legs-icon">
+                    </div>
+                </div>
+            </div>
+            <div id="items_bottom" class="flex">
+                <div class="item_slot">
+                    <img class="item_icon" th:src="@{/images/item-icons/no-weapon.png}" alt="weapon-icon">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -59,6 +90,7 @@
 
         if (selectedIndex != characters.length) {
             let selectedCharacter = characters[selectedIndex];
+            $("#class_icon").attr('src', '/images/class-icons/' + selectedCharacter.spec.specClass.name.toLowerCase() + '.png')
             $("#char_spec").text(selectedCharacter.spec.name + " " + selectedCharacter.spec.specClass.name);
         } else {
             $("#modal_container").removeClass("invisible");

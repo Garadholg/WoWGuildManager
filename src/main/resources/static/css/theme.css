@@ -98,6 +98,10 @@ select {
     align-items: flex-start;
 }
 
+.flex_col {
+    flex-direction: column;
+}
+
 .invisible {
     display: none;
 }
