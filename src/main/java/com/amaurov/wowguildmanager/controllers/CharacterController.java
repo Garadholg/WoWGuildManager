@@ -3,6 +3,7 @@ package com.amaurov.wowguildmanager.controllers;
 import com.amaurov.wowguildmanager.models.Character;
 import com.amaurov.wowguildmanager.models.Class;
 import com.amaurov.wowguildmanager.models.Specialization;
+import com.amaurov.wowguildmanager.models.jpaEntities.CharacterEntity;
 import com.amaurov.wowguildmanager.services.interfaces.CharacterService;
 import com.amaurov.wowguildmanager.utils.formData.CharacterCreationFormData;
 import org.springframework.stereotype.Controller;
@@ -28,15 +29,31 @@ public class CharacterController {
         this.characterService = characterService;
     }
 
+//    @GetMapping()
+//    public String characterCustomizationScreen(Model model) {
+//        Set<Class> classes = characterService.getAllClasses();
+//        model.addAttribute("classes", classes);
+//
+//        Set<Specialization> specs = characterService.getAllSpecs();
+//        model.addAttribute("specs", specs);
+//
+//        Optional<List<Character>> characters = characterService.getCharactersForUser("amaurov");
+//        model.addAttribute("chars", characters.get());
+//
+//        model.addAttribute("createFormData", new CharacterCreationFormData());
+//
+//        return "character-customization";
+//    }
+
     @GetMapping()
-    public String characterCustomizationScreen(Model model) {
+    public String characterCustomizationScreen(Principal principal, Model model) {
         Set<Class> classes = characterService.getAllClasses();
         model.addAttribute("classes", classes);
 
         Set<Specialization> specs = characterService.getAllSpecs();
         model.addAttribute("specs", specs);
 
-        Optional<List<Character>> characters = characterService.getCharactersForUser("amaurov");
+        Optional<List<CharacterEntity>> characters = characterService.getCharactersInfoForUser(principal.getName());
         model.addAttribute("chars", characters.get());
 
         model.addAttribute("createFormData", new CharacterCreationFormData());

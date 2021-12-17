@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "api/character")
+@RequestMapping(path = "api/characters")
 @RequiredArgsConstructor
 public class CharacterRestController {
 
@@ -22,6 +25,14 @@ public class CharacterRestController {
         return characterService.getCharacterFullInfo(characterId)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The character was not found!")
+                );
+    }
+
+    @GetMapping
+    public List<CharacterEntity> getCharactersInfoForUser(Principal principal) {
+        return characterService.getCharactersInfoForUser(principal.getName())
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The user does not have any character!")
                 );
     }
 

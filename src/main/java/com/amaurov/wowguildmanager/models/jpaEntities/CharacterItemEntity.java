@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class CharacterItemEntity implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDCharacterItem")
     private int id;
 
@@ -23,6 +24,14 @@ public class CharacterItemEntity implements Serializable {
     @JoinColumn(name = "ItemID", nullable = false)
     private ItemEntity item;
 
+    public CharacterItemEntity() { }
+
+    public CharacterItemEntity(CharacterEntity character, ItemSlotEntity slot, ItemEntity item) {
+        this.character = character;
+        this.slot = slot;
+        this.item = item;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,5 +42,9 @@ public class CharacterItemEntity implements Serializable {
 
     public ItemEntity getItem() {
         return item;
+    }
+
+    public void setItem(ItemEntity item) {
+        this.item = item;
     }
 }

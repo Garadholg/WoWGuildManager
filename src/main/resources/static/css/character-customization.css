@@ -1,5 +1,10 @@
 .item_slot {
     margin: 10px 0;
+    align-items: center;
+}
+
+.item_name {
+    width: 120px;
 }
 
 #character_dropdown {
@@ -19,11 +24,20 @@
 }
 
 #items_left {
-    margin-right: 115px;
+    margin-right: 20px;
+}
+
+#items_left .item_name {
+    margin: 0 0 0 6px;
 }
 
 #items_right {
-    margin-left: 115px;
+    margin-left: 20px;
+}
+
+#items_right .item_name {
+    margin: 0 6px 0 0;
+    text-align: end;
 }
 
 #items_bottom {
@@ -31,7 +45,19 @@
     justify-content: center;
 }
 
+#items_bottom .item_name {
+    text-align: center;
+}
+
 #modal_content {
     min-width: 22%;
     padding: 12px 90px;
+}
+
+.item_epic {
+    color: #a335ee;
+}
+
+.item_rare {
+    color: #0070dd;
 }

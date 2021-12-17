@@ -19,7 +19,7 @@
         </select>
 
         <div id="character_info" class="flex">
-            <img id="class_icon" th:src="@{/images/class-icons/none.png}" alt="class-icon">
+            <img id="class_icon" th:src="@{/images/class-icons/druid.png}" alt="class-icon" hidden="true" >
             <p id="char_spec" class="color_primary"></p>
         </div>
 
@@ -27,28 +27,34 @@
             <h3 class="title_text color_primary">Equipment</h3>
             <div class="flex">
                 <div id="items_left" class="flex flex_col">
-                    <div class="item_slot">
+                    <div id="item_head" class="item_slot flex">
                         <img class="item_icon" th:src="@{/images/item-icons/no-head.png}" alt="head-icon">
+                        <p class="item_name item_epic"></p>
                     </div>
-                    <div class="item_slot">
+                    <div id="item_shoulder" class="item_slot flex">
                         <img class="item_icon" th:src="@{/images/item-icons/no-shoulder.png}" alt="shoulder-icon">
+                        <p class="item_name item_epic"></p>
                     </div>
-                    <div class="item_slot">
+                    <div id="item_chest" class="item_slot flex">
                         <img class="item_icon" th:src="@{/images/item-icons/no-chest.png}" alt="chest-icon">
+                        <p class="item_name item_epic"></p>
                     </div>
                 </div>
                 <div id="items_right" class="flex flex_col">
-                    <div class="item_slot">
+                    <div id="item_hands" class="item_slot flex">
+                        <p class="item_name item_epic"></p>
                         <img class="item_icon" th:src="@{/images/item-icons/no-hands.png}" alt="hands-icon">
                     </div>
-                    <div class="item_slot">
+                    <div id="item_legs" class="item_slot flex">
+                        <p class="item_name item_epic"></p>
                         <img class="item_icon" th:src="@{/images/item-icons/no-legs.png}" alt="legs-icon">
                     </div>
                 </div>
             </div>
             <div id="items_bottom" class="flex">
-                <div class="item_slot">
+                <div id="item_weapon" class="item_slot flex flex_col">
                     <img class="item_icon" th:src="@{/images/item-icons/no-weapon.png}" alt="weapon-icon">
+                    <p class="item_name item_epic"></p>
                 </div>
             </div>
         </div>
@@ -90,13 +96,66 @@
 
         if (selectedIndex != characters.length) {
             let selectedCharacter = characters[selectedIndex];
-            $("#class_icon").attr('src', '/images/class-icons/' + selectedCharacter.spec.specClass.name.toLowerCase() + '.png')
-            $("#char_spec").text(selectedCharacter.spec.name + " " + selectedCharacter.spec.specClass.name);
+            $("#class_icon").attr('src', '/images/class-icons/' + selectedCharacter.spec.class.name.toLowerCase() + '.png')
+            $("#class_icon").attr('hidden', false);
+            $("#char_spec").text(selectedCharacter.spec.name + " " + selectedCharacter.spec.class.name);
+            fillCharacterItems(selectedCharacter.items);
         } else {
             $("#modal_container").removeClass("invisible");
             $("#class_dropdown").val(1);
             filterSpecs();
             $("#char_spec").text("");
+        }
+    }
+
+    function fillCharacterItems(items) {
+        let itemElement;
+        let itemSlot;
+        for(let i = 1; i <= 6; i++) {
+            switch (i) {
+                case 1:
+                    itemElement = $("#item_head");
+                    itemSlot = "head";
+                    break;
+                case 2:
+                    itemElement = $("#item_shoulder");
+                    itemSlot = "shoulder";
+                    break;
+                case 3:
+                    itemElement = $("#item_chest");
+                    itemSlot = "chest";
+                    break;
+                case 4:
+                    itemElement = $("#item_hands");
+                    itemSlot = "hands";
+                    break;
+                case 5:
+                    itemElement = $("#item_legs");
+                    itemSlot = "legs";
+                    break;
+                case 6:
+                    itemElement = $("#item_weapon");
+                    itemSlot = "weapon";
+                    break;
+            }
+
+            let item = items.find(itm => itm.slot.id === i);
+            if (item != null) {
+                itemElement.children(".item_icon").first().attr('src', '/images/item-icons/' + item.item.iconName);
+                itemElement.children(".item_name").first().text(item.item.name);
+                itemElement.children(".item_name").first().text(item.item.name);
+
+                if (item.item.rarity.id == 2) {
+                    itemElement.children(".item_name").first().removeClass('item_rare');
+                    itemElement.children(".item_name").first().addClass('item_epic');
+                } else if (item.item.rarity.id == 1) {
+                    itemElement.children(".item_name").first().removeClass('item_epic');
+                    itemElement.children(".item_name").first().addClass('item_rare');
+                }
+            } else {
+                itemElement.children(".item_icon").first().attr('src', '/images/item-icons/no-' + itemSlot + '.png');
+                itemElement.children(".item_name").first().text('');
+            }
         }
     }
 

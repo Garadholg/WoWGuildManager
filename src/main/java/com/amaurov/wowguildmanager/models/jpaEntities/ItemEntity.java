@@ -33,6 +33,10 @@ public class ItemEntity implements Serializable {
         return name;
     }
 
+    public ItemRarityEntity getRarity() {
+        return rarity;
+    }
+
     public ItemSlotEntity getSlot() {
         return slot;
     }

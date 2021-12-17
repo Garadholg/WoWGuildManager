@@ -35,11 +35,6 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public Optional<List<Character>> getCharactersForUser(String username) {
-        return characterRepository.getAllForUser(username);
-    }
-
-    @Override
     public void createCharacter(String username, String characterName, int specID) {
         characterRepository.create(
                 new Character(
@@ -55,6 +50,16 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public Optional<CharacterEntity> getCharacterFullInfo(int characterId) {
         return characterJpaRepository.findById(characterId);
+    }
+
+    @Override
+    public Optional<List<CharacterEntity>> getCharactersInfoForUser(String username) {
+        return characterJpaRepository.findAllByUser(username);
+    }
+
+    @Override
+    public boolean characterExists(int characterId) {
+        return characterJpaRepository.existsById(characterId);
     }
 
 }
