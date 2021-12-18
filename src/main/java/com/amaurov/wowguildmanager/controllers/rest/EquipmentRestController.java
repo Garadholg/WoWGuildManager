@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "api/equipment")
@@ -31,20 +32,28 @@ public class EquipmentRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The item with the id " + request.getItemId() + " does not exist");
         }
 
+        if (!characterService.isCharacterOfLoggedUser(request.getCharacterId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Character management is allowed only for the characters of the logged user");
+        }
+
         return equipmentService.equipItem(request.getCharacterId(), request.getItemId());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("unequip")
     public void unequipItem(@Valid @RequestBody UnequipItemRequest request) {
+        if (!characterService.isCharacterOfLoggedUser(request.getCharacterId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Character management is allowed only for the characters of the logged user");
+        }
+
         if (!characterService.characterExists(request.getCharacterId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The character with the id " + request.getCharacterId() + " does not exist");
         }
 
-        if (!equipmentService.itemExists(request.getItemId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The item with the id " + request.getItemId() + " does not exist");
+        if (!equipmentService.slotExistsForCharacter(request.getCharacterId(), request.getSlotId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The character does not have an item equipped in the slot " + request.getSlotId());
         }
 
-        equipmentService.unequipItem(request.getCharacterId(), request.getItemId());
+        equipmentService.unequipItem(request.getCharacterId(), request.getSlotId());
     }
 }

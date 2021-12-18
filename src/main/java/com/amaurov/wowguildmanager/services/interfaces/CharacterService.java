@@ -1,9 +1,8 @@
 package com.amaurov.wowguildmanager.services.interfaces;
 
-import com.amaurov.wowguildmanager.models.Character;
-import com.amaurov.wowguildmanager.models.jpaEntities.CharacterEntity;
 import com.amaurov.wowguildmanager.models.Class;
 import com.amaurov.wowguildmanager.models.Specialization;
+import com.amaurov.wowguildmanager.models.jpaEntities.CharacterEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +16,5 @@ public interface CharacterService {
     Optional<CharacterEntity> getCharacterFullInfo(int characterId);
     Optional<List<CharacterEntity>> getCharactersInfoForUser(String username);
     boolean characterExists(int characterId);
+    boolean isCharacterOfLoggedUser(int characterId);
 }

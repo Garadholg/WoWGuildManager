@@ -10,7 +10,7 @@ public class UnequipItemRequest {
 
     @NotEmpty
     @Min(1)
-    private int itemId;
+    private int slotId;
 
     public int getCharacterId() {
         return characterId;
@@ -20,11 +20,11 @@ public class UnequipItemRequest {
         this.characterId = characterId;
     }
 
-    public int getItemId() {
-        return itemId;
+    public int getSlotId() {
+        return slotId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setSlotId(int slotId) {
+        this.slotId = slotId;
     }
 }

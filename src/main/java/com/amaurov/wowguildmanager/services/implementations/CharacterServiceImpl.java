@@ -10,6 +10,8 @@ import com.amaurov.wowguildmanager.models.Class;
 import com.amaurov.wowguildmanager.models.Specialization;
 import com.amaurov.wowguildmanager.services.interfaces.CharacterService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,6 +62,15 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public boolean characterExists(int characterId) {
         return characterJpaRepository.existsById(characterId);
+    }
+
+    @Override
+    public boolean isCharacterOfLoggedUser(int characterId) {
+        CharacterEntity character = characterJpaRepository.findById(characterId).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return character.getUser().equals(auth.getName())
+                || auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
     }
 
 }

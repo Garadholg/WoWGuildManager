@@ -10,5 +10,6 @@ import java.util.Optional;
 
 public interface CharacterItemJpaRepository extends CrudRepository<CharacterItemEntity, Integer> {
     Optional<CharacterItemEntity> findByCharacterAndSlot(CharacterEntity character, ItemSlotEntity slot);
-    Optional<CharacterItemEntity> findByCharacterAndItem(CharacterEntity character, ItemEntity item);
+    Optional<CharacterItemEntity> findByCharacterAndSlot(CharacterEntity character, ItemEntity slot);
+    boolean existsByCharacterAndSlot(CharacterEntity character, ItemSlotEntity slot);
 }
